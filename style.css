@@ -1,0 +1,16 @@
+body{
+    background-color: #B0C4DE;
+}
+
+p{
+    font-family: 'Times New Roman', Times, serif;
+    size: 40px;
+    font-weight: bold;
+}
+
+.h{
+    font-family: 'Times New Roman', Times, serif;
+    color: blue;
+    size: 6;
+}
+

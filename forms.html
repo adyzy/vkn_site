@@ -1,0 +1,297 @@
+<html>
+
+<head>
+    <title>формы</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <form name="questions">
+        <font face="arial" size="5">Какая платформа вам больше нравится?</font>
+        <select name="platform" size="1">
+            <option value="nintendo">Nintendo</option>
+            <option value="Sega">Sega</option>
+            <option value="Sony">Sony</option>
+        </select>
+
+        <br>
+
+        <font face="arial" size="5">Отправляйте фото своих старых консолей, если они сохранились</font>
+        <br>
+        <form name="load">
+
+            <label for="load">
+                <font face="arial" size="5">Выберете файл: </font>
+            </label>
+            <input type="file" name="load" size="30">
+            <input type="button" name="sumbit" value="Отправить">
+        </form>
+    </form>
+    <p>Хочешь что-то добавить?</p>
+    <input type="text" name="text1" size="25">
+    <input type="button" name="sumbit" value="Отправить">
+    </form>
+
+    <br>
+
+    <section>
+        <h2>Интерактивное меню</h2>
+        <div>
+            <select id="menuAction">
+                <option value="">Выберите действие...</option>
+                <option value="date">Показать текущую дату и время (Date)</option>
+                <option value="random">Сгенерировать случайное число (Math)</option>
+                <option value="message">Отобразить приветственное сообщение</option>
+            </select>
+            <button onclick="executeMenuAction()">
+                Выполнить
+            </button>
+        </div>
+        <p id="menuResult"></p>
+    </section>
+
+    <!-- String Demo -->
+    <div>
+        <h2>2.1. Операции со строками (String)</h2>
+        <input type="text" id="stringInput" placeholder="Введите текст, например, 'привет мир'">
+        <button onclick="processString()"
+            >
+            Обработать строку
+        </button>
+        <div>
+            <p><span>Длина (Length):</span> <span id="stringLength"
+                    class="text-lg"></span></p>
+            <p><span>В верхнем регистре (Uppercase):</span> <span
+                    id="stringUppercase" class="text-lg break-all"></span></p>
+        </div>
+    </div>
+
+    <!-- Math Demo -->
+    <div>
+        <h2>2.2. Математические операции (Math)</h2>
+        <input type="number" id="mathInput" placeholder="Введите число, например, 15.789"
+            >
+        <button onclick="processMath()"
+            >
+            Вычислить
+        </button>
+        <div>
+            <p><span>Квадратный корень (Math.sqrt):</span> <span
+                    id="mathSqrt" class="text-lg"></span></p>
+            <p><span>Округление до ближайшего целого (Math.round):</span>
+                <span id="mathRound" class="text-lg"></span>
+            </p>
+        </div>
+    </div>
+    </section>
+
+    <!-- 3. Работа с массивами: Управление данными студентов (c) -->
+    <section class="p-6 bg-white rounded-xl container-card">
+        <h2 class="text-2xl font-semibold text-blue-700 mb-4 border-b pb-2">3. Управление данными студентов (Массивы)
+        </h2>
+
+        <!-- Форма ввода данных студента -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <input type="text" id="studentName" placeholder="Имя студента" class="input-field p-3 rounded-lg" required>
+            <input type="number" id="exam1Score" placeholder="Балл Экзамен 1 (0-100)" min="0" max="100">
+            <input type="number" id="exam2Score" placeholder="Балл Экзамен 2 (0-100)" min="0" max="100">
+            <button onclick="addStudent()">Добавить студента</button>
+        </div>
+
+        <div>
+            <!-- Список студентов -->
+            <div>
+                <h3>Список студентов</h3>
+                <div id="studentsList">
+                    <p>Студенты пока не добавлены.</p>
+                </div>
+            </div>
+
+            <!-- Результаты расчетов -->
+            <div class="lg:col-span-1">
+                <h3>Результаты расчетов</h3>
+                <div id="calculationResults">
+                    <p><span>Всего студентов:</span> <span id="totalStudents">0</span></p>
+                    <p><span>Сумма баллов за Экзамен 1:</span> <span id="totalExam1">0</span></p>
+                    <p><span>Средний балл за Экзамен 1:</span> <span id="avgExam1">0.00</span></p>
+                    <p><span>Сумма баллов за Экзамен 2:</span> <span id="totalExam2">0</span></p>
+                    <p><span>Средний балл за Экзамен 2:</span> <span id="avgExam2">0.00</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div>
+
+    <script>
+        // Глобальный массив для хранения данных студентов (часть 3)
+        let students = [];
+
+        // --- 1. Интерактивное меню (a) ---
+        function executeMenuAction() {
+            const action = document.getElementById('menuAction').value;
+            const resultElement = document.getElementById('menuResult');
+            resultElement.classList.remove('text-red-600'); // Очистка стилей ошибок
+
+            if (!action) {
+                resultElement.textContent = 'Пожалуйста, выберите действие из меню.';
+                resultElement.classList.add('text-red-600');
+                return;
+            }
+
+            switch (action) {
+                case 'date':
+                    // Использование объекта Date
+                    const now = new Date();
+                    resultElement.textContent = `Текущая дата и время: ${now.toLocaleString('ru-RU')}`;
+                    break;
+                case 'random':
+                    // Использование объекта Math
+                    const randomNumber = Math.floor(Math.random() * 100) + 1; // Случайное число от 1 до 100
+                    resultElement.textContent = `Случайное число от 1 до 100: ${randomNumber}`;
+                    break;
+                case 'message':
+                    resultElement.textContent = 'Добро пожаловать в интерактивную форму!';
+                    break;
+                default:
+                    resultElement.textContent = 'Действие не распознано.';
+                    resultElement.classList.add('text-red-600');
+            }
+        }
+
+        // --- 2. Демонстрация стандартных объектов (b) ---
+
+        // 2.1. String
+        function processString() {
+            const input = document.getElementById('stringInput').value;
+            const lengthElement = document.getElementById('stringLength');
+            const uppercaseElement = document.getElementById('stringUppercase');
+
+            if (!input) {
+                lengthElement.textContent = '---';
+                uppercaseElement.textContent = '---';
+                return;
+            }
+
+            // Использование стандартных методов объекта String
+            lengthElement.textContent = input.length;
+            uppercaseElement.textContent = input.toUpperCase(); // Преобразование в верхний регистр
+        }
+
+        // 2.2. Math
+        function processMath() {
+            const input = parseFloat(document.getElementById('mathInput').value);
+            const sqrtElement = document.getElementById('mathSqrt');
+            const roundElement = document.getElementById('mathRound');
+
+            if (isNaN(input) || !document.getElementById('mathInput').value) {
+                sqrtElement.textContent = '---';
+                roundElement.textContent = '---';
+                return;
+            }
+
+            // Использование стандартных методов объекта Math
+            sqrtElement.textContent = Math.sqrt(input).toFixed(4); // Квадратный корень
+            roundElement.textContent = Math.round(input); // Округление до ближайшего целого
+        }
+
+        // --- 3. Работа с массивами (c) ---
+
+        function addStudent() {
+            const nameInput = document.getElementById('studentName');
+            const exam1Input = document.getElementById('exam1Score');
+            const exam2Input = document.getElementById('exam2Score');
+
+            const name = nameInput.value.trim();
+            const score1 = parseInt(exam1Input.value, 10);
+            const score2 = parseInt(exam2Input.value, 10);
+
+            // Проверка ввода
+            if (!name || isNaN(score1) || isNaN(score2) || score1 < 0 || score1 > 100 || score2 < 0 || score2 > 100) {
+                // Вместо alert() используем сообщение в консоли и визуальную обратную связь
+                console.error("Ошибка ввода: проверьте имя и баллы (0-100).");
+
+                // Простая визуальная обратная связь
+                [nameInput, exam1Input, exam2Input].forEach(el => {
+                    if (!el.value || isNaN(parseInt(el.value, 10)) || parseInt(el.value, 10) < 0 || parseInt(el.value, 10) > 100) {
+                        el.classList.add('border-red-500');
+                    } else {
+                        el.classList.remove('border-red-500');
+                    }
+                });
+
+                return;
+            }
+
+            // Очистка красной рамки после успешной проверки
+            [nameInput, exam1Input, exam2Input].forEach(el => el.classList.remove('border-red-500'));
+
+
+            // Добавление объекта в массив
+            students.push({
+                name: name,
+                exam1: score1,
+                exam2: score2
+            });
+
+            // Очистка формы
+            nameInput.value = '';
+            exam1Input.value = '';
+            exam2Input.value = '';
+
+            // Обновление отображения и расчетов
+            updateStudentsDisplay();
+            calculateAndDisplayResults();
+        }
+
+        function updateStudentsDisplay() {
+            const listElement = document.getElementById('studentsList');
+            if (students.length === 0) {
+                listElement.innerHTML = '<p class="text-gray-500 italic">Студенты пока не добавлены.</p>';
+                return;
+            }
+
+            // Динамическое создание списка студентов
+            listElement.innerHTML = students.map((s, index) => `
+                <div class="flex justify-between items-center p-2 border-b last:border-b-0">
+                    <span class="font-medium text-gray-700">${index + 1}. ${s.name}</span>
+                    <span class="text-sm text-gray-600">
+                        Экз. 1: <span class="font-bold text-blue-500">${s.exam1}</span> |
+                        Экз. 2: <span class="font-bold text-blue-500">${s.exam2}</span>
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function calculateAndDisplayResults() {
+            const totalStudents = students.length;
+
+            let totalExam1 = 0;
+            let totalExam2 = 0;
+
+            // Использование метода reduce для вычисления сумм
+            totalExam1 = students.reduce((sum, student) => sum + student.exam1, 0);
+            totalExam2 = students.reduce((sum, student) => sum + student.exam2, 0);
+
+            // Вычисление среднего балла
+            const avgExam1 = totalStudents > 0 ? (totalExam1 / totalStudents).toFixed(2) : '0.00';
+            const avgExam2 = totalStudents > 0 ? (totalExam2 / totalStudents).toFixed(2) : '0.00';
+
+            // Обновление элементов на странице
+            document.getElementById('totalStudents').textContent = totalStudents;
+            document.getElementById('totalExam1').textContent = totalExam1;
+            document.getElementById('totalExam2').textContent = totalExam2;
+            document.getElementById('avgExam1').textContent = avgExam1;
+            document.getElementById('avgExam2').textContent = avgExam2;
+        }
+
+        // Инициализация при загрузке
+        window.onload = () => {
+            updateStudentsDisplay();
+            calculateAndDisplayResults();
+        };
+
+    </script>
+</body>
+
+</html>
